@@ -39,6 +39,7 @@
   padding: 0;
 }
 
+<<<<<<< HEAD
 .ui-dialog .ui-dialog-buttonpane button {
   background: #fefefe;
   background-image: -webkit-linear-gradient(top, #fefefe, #e0e0e0);
@@ -76,6 +77,8 @@
   text-shadow: none;
 }
 
+=======
+>>>>>>> d3dc24e163e1346a1a6dc93f63541e47302cfefa
 /* Form action buttons are moved in dialogs. Remove empty space. */
 .ui-dialog .ui-dialog-content .form-actions {
   padding: 0;

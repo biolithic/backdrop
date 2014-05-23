@@ -3,42 +3,7 @@
  * Handles AJAX submission and response in Views UI.
  */
 (function ($) {
-
-  Drupal.ajax.prototype.commands.viewsSetForm = function (ajax, response, status) {
-    var ajax_title = Drupal.settings.views.ajax.title;
-    var ajax_body = Drupal.settings.views.ajax.id;
-    var ajax_popup = Drupal.settings.views.ajax.popup;
-    $(ajax_title).html(response.title);
-    $(ajax_body).html(response.output);
-    $(ajax_popup).dialog('open');
-    Drupal.attachBehaviors($(ajax_popup), ajax.settings);
-    if (response.url) {
-      // Identify the button that was clicked so that .ajaxSubmit() can use it.
-      // We need to do this for both .click() and .mousedown() since JavaScript
-      // code might trigger either behavior.
-      var $submit_buttons = $('input[type=submit], button', ajax_body);
-      $submit_buttons.click(function(event) {
-        this.form.clk = this;
-      });
-      $submit_buttons.mousedown(function(event) {
-        this.form.clk = this;
-      });
-
-      $('form', ajax_body).once('views-ajax-submit-processed').each(function() {
-        var element_settings = { 'url': response.url, 'event': 'submit', 'progress': { 'type': 'throbber' } };
-        var $form = $(this);
-        var id = $form.attr('id');
-        Drupal.ajax[id] = new Drupal.ajax(id, this, element_settings);
-        Drupal.ajax[id].form = $form;
-      });
-    }
-    Drupal.viewsUi.resizeModal();
-  };
-
-  Drupal.ajax.prototype.commands.viewsDismissForm = function (ajax, response, status) {
-    Drupal.ajax.prototype.commands.viewsSetForm({}, {'title': '', 'output': Drupal.settings.views.ajax.defaultForm});
-    $(Drupal.settings.views.ajax.popup).dialog('close');
-  }
+  "use strict";
 
   Drupal.ajax.prototype.commands.viewsHilite = function (ajax, response, status) {
     $('.hilited').removeClass('hilited');
@@ -125,20 +90,6 @@
   Drupal.behaviors.viewsAjax = {
     collapseReplaced: false,
     attach: function (context, settings) {
-      if (!settings.views) {
-        return;
-      }
-      // Create a jQuery UI dialog, but leave it closed.
-      var dialog_area = $(settings.views.ajax.popup, context);
-      dialog_area.dialog({
-        'autoOpen': false,
-        'dialogClass': 'views-ui-dialog',
-        'modal': true,
-        'position': 'center',
-        'resizable': false,
-        'width': 750
-      });
-
       var base_element_settings = {
         'event': 'click',
         'progress': { 'type': 'throbber' }
@@ -198,6 +149,7 @@
         var base = $(this).attr('id');
         Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
       });
+<<<<<<< HEAD
 
       if (!this.collapseReplaced && Drupal.collapseScrollIntoView) {
         this.collapseReplaced = true;
@@ -229,6 +181,8 @@
           }
         };
       }
+=======
+>>>>>>> d3dc24e163e1346a1a6dc93f63541e47302cfefa
     }
   };
 

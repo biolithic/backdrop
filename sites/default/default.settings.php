@@ -491,7 +491,7 @@ ini_set('session.cookie_lifetime', 2000000);
  */
 $conf['404_fast_paths_exclude'] = '/\/(?:styles)\//';
 $conf['404_fast_paths'] = '/\.(?:txt|png|gif|jpe?g|css|js|ico|swf|flv|cgi|bat|pl|dll|exe|asp)$/i';
-$conf['404_fast_html'] = '<html xmlns="http://www.w3.org/1999/xhtml"><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL "@path" was not found on this server.</p></body></html>';
+$conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL "@path" was not found on this server.</p></body></html>';
 
 /**
  * By default, fast 404s are returned as part of the normal page request
@@ -547,3 +547,13 @@ $conf['404_fast_html'] = '<html xmlns="http://www.w3.org/1999/xhtml"><head><titl
  * Remove the leading hash signs to disable.
  */
  // $conf['allow_authorize_operations'] = FALSE;
+
+/**
+ * Drupal backwards compatibility.
+ *
+ * By default, Backdrop 1.0 includes a compatibility layer to keep it compatible
+ * with Drupal 7 APIs. Backdrop core itself does not use this compatibility
+ * layer however. You may disable it if all the modules you're running were
+ * built for Backdrop.
+ */
+$conf['backdrop_drupal_compatibility'] = TRUE;

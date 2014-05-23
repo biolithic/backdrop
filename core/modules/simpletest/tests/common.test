@@ -638,6 +638,31 @@ class CommonCascadingStylesheetsTestCase extends DrupalWebTestCase {
   }
 
   /**
+   * Tests removing charset when rendering stylesheets with preprocessing on.
+   */
+  function testRenderRemoveCharsetPreprocess() {
+    $cases = array(
+      array(
+        'asset' => '@charset "UTF-8";html{font-family:"sans-serif";}',
+        'expected' => 'html{font-family:"sans-serif";}',
+      ),
+      // This asset contains extra \n character.
+      array(
+        'asset' => "@charset 'UTF-8';\nhtml{font-family:'sans-serif';}",
+        'expected' => "\nhtml{font-family:'sans-serif';}",
+      ),
+    );
+
+    foreach ($cases as $case) {
+      $this->assertEqual(
+        $case['expected'],
+        drupal_load_stylesheet_content($case['asset']),
+        'CSS optimizing correctly removes the charset declaration.'
+      );
+    }
+  }
+
+  /**
    * Tests rendering inline stylesheets with preprocessing off.
    */
   function testRenderInlineNoPreprocess() {
@@ -2694,6 +2719,7 @@ class ArrayDiffUnitTest extends DrupalUnitTestCase {
  * Test for theme_feed_icon().
  */
 class FeedIconTest extends DrupalWebTestCase {
+<<<<<<< HEAD
 
   public static function getInfo() {
     return array(
@@ -2703,6 +2729,8 @@ class FeedIconTest extends DrupalWebTestCase {
     );
   }
 
+=======
+>>>>>>> d3dc24e163e1346a1a6dc93f63541e47302cfefa
   /**
    * Check that special characters are correctly escaped. Test for issue #1211668.
    */
